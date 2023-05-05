@@ -1,0 +1,54 @@
+import { PaymentsUtils, Payport, AutoFeeLevels, FeeRate, NetworkType, BalanceResult, BlockInfo } from '../lib-common';
+import { Logger, Numeric } from '../ts-common';
+import { BlockbookEthereum } from 'blockbook-client';
+import Web3 from 'web3';
+import Contract from 'web3-eth-contract';
+import { EthereumPaymentsUtilsConfig, EthereumTransactionInfo } from './types';
+import { NetworkData } from './NetworkData';
+import { UnitConvertersUtil } from './UnitConvertersUtil';
+export declare class EthereumPaymentsUtils extends UnitConvertersUtil implements PaymentsUtils {
+    readonly networkType: NetworkType;
+    readonly coinSymbol: string;
+    readonly coinName: string;
+    readonly coinDecimals: number;
+    readonly tokenAddress?: string;
+    logger: Logger;
+    server: string | null;
+    web3: Web3;
+    eth: Web3['eth'];
+    networkData: NetworkData;
+    blockBookApi: BlockbookEthereum;
+    constructor(config: EthereumPaymentsUtilsConfig);
+    protected newContract(...args: ConstructorParameters<typeof Contract>): Contract;
+    init(): Promise<void>;
+    destroy(): Promise<void>;
+    isValidAddress(address: string, options?: {
+        format?: string;
+    }): boolean;
+    standardizeAddress(address: string, options?: {
+        format?: string;
+    }): string | null;
+    isValidExtraId(extraId: unknown): boolean;
+    isValidPayport(payport: Payport): payport is Payport;
+    validatePayport(payport: Payport): void;
+    getPayportValidationMessage(payport: Payport): string | undefined;
+    isValidXprv(xprv: string): boolean;
+    isValidXpub(xpub: string): boolean;
+    isValidPrivateKey(prv: string): boolean;
+    isAddressEqual(address1: string, address2: string): boolean;
+    privateKeyToAddress(prv: string): string;
+    private _getPayportValidationMessage;
+    getFeeRateRecommendation(level: AutoFeeLevels): Promise<FeeRate>;
+    _retryDced<T>(fn: () => Promise<T>): Promise<T>;
+    getCurrentBlockNumber(): Promise<number>;
+    formatAddress(address: string): string;
+    isAddressBalanceSweepable(balanceEth: Numeric): boolean;
+    getAddressBalanceERC20(address: string, tokenAddress: string): Promise<BalanceResult>;
+    getAddressBalance(address: string): Promise<BalanceResult>;
+    getAddressNextSequenceNumber(address: string): Promise<string>;
+    getAddressUtxos(): Promise<any[]>;
+    private getErc20TransferLogAmount;
+    private getTransactionInfoERC20;
+    getTransactionInfo(txid: string): Promise<EthereumTransactionInfo>;
+    getBlock(id?: string | number): Promise<BlockInfo>;
+}
