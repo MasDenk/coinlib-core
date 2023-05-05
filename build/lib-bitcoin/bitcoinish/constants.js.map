@@ -1,0 +1,1 @@
+{"version":3,"file":"constants.js","sourceRoot":"","sources":["../../../src/lib-bitcoin/bitcoinish/constants.ts"],"names":[],"mappings":";;;AAAA,iDAA2C;AAG9B,QAAA,+BAA+B,GAAyB;IACnE,CAAC,qBAAQ,CAAC,IAAI,CAAC,EAAE,CAAC;IAClB,CAAC,qBAAQ,CAAC,MAAM,CAAC,EAAE,EAAE;IACrB,CAAC,qBAAQ,CAAC,GAAG,CAAC,EAAE,GAAG;CACpB,CAAA"}

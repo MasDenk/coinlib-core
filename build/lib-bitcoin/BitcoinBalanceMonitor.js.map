@@ -1,0 +1,1 @@
+{"version":3,"file":"BitcoinBalanceMonitor.js","sourceRoot":"","sources":["../../src/lib-bitcoin/BitcoinBalanceMonitor.ts"],"names":[],"mappings":";;;AAAA,iEAA6D;AAC7D,oFAAgF;AAEhF,mCAA4C;AAE5C,MAAa,qBAAsB,SAAQ,mDAAwB;IACjE,YAAY,MAAmC;QAC7C,KAAK,CAAC;YACJ,GAAG,IAAA,0BAAkB,EAAC,MAAM,CAAC;YAC7B,KAAK,EAAE,IAAI,2CAAoB,CAAC,MAAM,CAAC;SACxC,CAAC,CAAA;IACJ,CAAC;CACF;AAPD,sDAOC"}
