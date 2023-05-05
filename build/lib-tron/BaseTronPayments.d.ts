@@ -1,0 +1,34 @@
+import { Transaction as TronTransaction } from 'tronweb';
+import { BalanceResult, BasePayments, FeeOption, ResolvedFeeOption, Payport, FromTo, ResolveablePayport, PayportOutput } from '../lib-common';
+import { Numeric } from '../ts-common';
+import { TronTransactionInfo, TronUnsignedTransaction, TronSignedTransaction, TronBroadcastResult, CreateTransactionOptions, BaseTronPaymentsConfig } from './types';
+import { TronPaymentsUtils } from './TronPaymentsUtils';
+export declare abstract class BaseTronPayments<Config extends BaseTronPaymentsConfig> extends TronPaymentsUtils implements BasePayments<Config, TronUnsignedTransaction, TronSignedTransaction, TronBroadcastResult, TronTransactionInfo> {
+    abstract getFullConfig(): Config;
+    abstract getPublicConfig(): Config;
+    abstract getAccountId(index: number): string;
+    abstract getAccountIds(): string[];
+    abstract getPayport(index: number): Promise<Payport>;
+    abstract getPrivateKey(index: number): Promise<string>;
+    init(): Promise<void>;
+    destroy(): Promise<void>;
+    requiresBalanceMonitor(): boolean;
+    getBalance(resolveablePayport: ResolveablePayport): Promise<BalanceResult>;
+    resolveFeeOption(feeOption: FeeOption): Promise<ResolvedFeeOption>;
+    buildUnsignedTx(toAddress: string, amountSun: number, fromAddress: string): Promise<TronTransaction>;
+    createServiceTransaction(): Promise<null>;
+    createSweepTransaction(from: number, to: ResolveablePayport, options?: CreateTransactionOptions): Promise<TronUnsignedTransaction>;
+    createTransaction(from: number, to: ResolveablePayport, amountTrx: string, options?: CreateTransactionOptions): Promise<TronUnsignedTransaction>;
+    signTransaction(unsignedTx: TronUnsignedTransaction): Promise<TronSignedTransaction>;
+    broadcastTransaction(tx: TronSignedTransaction): Promise<TronBroadcastResult>;
+    isSweepableBalance(balanceTrx: Numeric): boolean;
+    usesSequenceNumber(): boolean;
+    getNextSequenceNumber(): Promise<any>;
+    usesUtxos(): boolean;
+    getUtxos(): Promise<any[]>;
+    resolvePayport(payport: ResolveablePayport): Promise<Payport>;
+    resolveFromTo(from: number, to: ResolveablePayport): Promise<FromTo>;
+    createMultiOutputTransaction(from: number, to: PayportOutput[], options?: CreateTransactionOptions): Promise<null>;
+    createMultiInputTransaction(from: number[], to: PayportOutput[], options?: CreateTransactionOptions): Promise<null>;
+}
+export default BaseTronPayments;
