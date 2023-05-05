@@ -1,0 +1,12 @@
+export * from './BaseDogePayments';
+export * from './types';
+export * from './constants';
+export * from './helpers';
+export * from './HdDogePayments';
+export * from './DogePaymentsUtils';
+export * from './DogePaymentsFactory';
+export * from './SinglesigDogePayments';
+export * from './KeyPairDogePayments';
+export * from './MultisigDogePayments';
+export * from './DogeBalanceMonitor';
+export { bitcoinish } from '../lib-bitcoin';

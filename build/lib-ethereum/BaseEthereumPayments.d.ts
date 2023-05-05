@@ -1,0 +1,42 @@
+import type { TransactionConfig } from 'web3-core';
+import { BalanceResult, BasePayments, FeeOption, FeeOptionCustom, Payport, FromTo, ResolveablePayport, CreateTransactionOptions as TransactionOptions, PayportOutput, AutoFeeLevels } from '../lib-common';
+import { Numeric } from '../ts-common';
+import { EthereumTransactionInfo, EthereumUnsignedTransaction, EthereumSignedTransaction, EthereumBroadcastResult, BaseEthereumPaymentsConfig, EthereumResolvedFeeOption, EthereumTransactionOptions, EthTxType } from './types';
+import { EthereumPaymentsUtils } from './EthereumPaymentsUtils';
+export declare abstract class BaseEthereumPayments<Config extends BaseEthereumPaymentsConfig> extends EthereumPaymentsUtils implements BasePayments<Config, EthereumUnsignedTransaction, EthereumSignedTransaction, EthereumBroadcastResult, EthereumTransactionInfo> {
+    private config;
+    depositKeyIndex: number;
+    constructor(config: Config);
+    getFullConfig(): Config;
+    abstract getPublicConfig(): Config;
+    resolvePayport(payport: ResolveablePayport): Promise<Payport>;
+    resolveFromTo(from: number, to: ResolveablePayport): Promise<FromTo>;
+    resolveFeeOption(feeOption: FeeOption, amountOfGas?: number): Promise<EthereumResolvedFeeOption>;
+    resolveCustomFeeOption(feeOption: FeeOptionCustom, amountOfGas: number): EthereumResolvedFeeOption;
+    resolveLeveledFeeOption(feeLevel: AutoFeeLevels, amountOfGas: number): Promise<EthereumResolvedFeeOption>;
+    abstract getAccountIds(): string[];
+    abstract getAccountId(index: number): string;
+    requiresBalanceMonitor(): boolean;
+    getAvailableUtxos(): Promise<any[]>;
+    getUtxos(): Promise<any[]>;
+    usesSequenceNumber(): boolean;
+    usesUtxos(): boolean;
+    abstract getPayport(index: number): Promise<Payport>;
+    abstract getPrivateKey(index: number): Promise<string>;
+    getBalance(resolveablePayport: ResolveablePayport): Promise<BalanceResult>;
+    isSweepableBalance(balance: Numeric): Promise<boolean>;
+    getNextSequenceNumber(payport: ResolveablePayport): Promise<string>;
+    createTransaction(from: number, to: ResolveablePayport, amountEth: string, options?: EthereumTransactionOptions): Promise<EthereumUnsignedTransaction>;
+    createServiceTransaction(from?: number, options?: EthereumTransactionOptions): Promise<EthereumUnsignedTransaction>;
+    createJoinedTransaction(): Promise<null>;
+    createSweepTransaction(from: number | string, to: ResolveablePayport, options?: EthereumTransactionOptions): Promise<EthereumUnsignedTransaction>;
+    createMultiOutputTransaction(from: number, to: PayportOutput[], options?: TransactionOptions): Promise<null>;
+    createMultiInputTransaction(from: number[], to: PayportOutput[], options?: TransactionOptions): Promise<null>;
+    signTransaction(unsignedTx: EthereumUnsignedTransaction): Promise<EthereumSignedTransaction>;
+    private sendTransactionWithoutConfirmation;
+    broadcastTransaction(tx: EthereumSignedTransaction): Promise<EthereumBroadcastResult>;
+    /** Helper for determining what gas limit should be used when creating tx. Prefer provided option over estimate. */
+    protected gasOptionOrEstimate(options: EthereumTransactionOptions, txObject: TransactionConfig, txType: EthTxType): Promise<number>;
+    private createTransactionObject;
+}
+export default BaseEthereumPayments;
