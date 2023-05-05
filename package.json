@@ -1,0 +1,60 @@
+{
+  "name": "coinlib-core",
+  "version": "1.0.0",
+  "description": "\"# coinlib-core\"",
+  "main": "build/lib-base/index.js",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint --fix",
+    "prettier-format": "prettier --config prettier.config.js 'src/**/*.ts' --write"
+  },
+  "author": "MasDenk",
+  "license": "ISC",
+  "dependencies": {
+    "base-x": "^4.0.0",
+    "bignumber.js": "^9.0.0",
+    "bip174": "^2.1.0",
+    "bip32": "^3.0.1",
+    "bip39": "^3.0.4",
+    "bitcoinjs-lib": "^6.0.1",
+    "bitcoinjs-lib-bigint": "^0.0.1-security",
+    "blockbook-client": "^0.7.5",
+    "bn.js": "^5.2.1",
+    "bottleneck": "^2.19.5",
+    "bs58": "^5.0.0",
+    "ecpair": "^2.0.1",
+    "elliptic": "^6.5.4",
+    "ethereum-input-data-decoder": "^0.4.1",
+    "ethereumjs-tx": "^2.1.2",
+    "ethereumjs-util": "^7.1.5",
+    "fp-ts": "^1.19.5",
+    "io-ts": "^1.10.4",
+    "js-sha3": "^0.8.0",
+    "jssha": "^3.2.0",
+    "lodash": "^4.17.21",
+    "promise-retry": "^2.0.1",
+    "request": "^2.34",
+    "request-promise-native": "^1.0.9",
+    "ripple-lib": "^1.10.1",
+    "stellar-hd-wallet": "^0.0.10",
+    "stellar-sdk": "^10.1.2",
+    "tiny-secp256k1": "^2.2.1",
+    "tronweb": "^4.2.0",
+    "web3": "^1.7.4",
+    "web3-core": "^1.7.4",
+    "web3-eth": "^1.7.4",
+    "web3-eth-contract": "^1.7.4",
+    "web3-utils": "^1.7.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "bs58check": "^2.1.2",
+    "eslint": "^8.18.0",
+    "prettier": "^2.7.1",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4"
+  }
+}
